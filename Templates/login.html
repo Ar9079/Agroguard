@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AgroGuard | Officer Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-green: #2ecc71;
+            --dark-green: #1a8f4a;
+            --dark-blue: #1e3a5f;
+            --light-bg: #f8f9fa;
+        }
+
+        * {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        html {
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        html::-webkit-scrollbar,
+        body::-webkit-scrollbar {
+            display: none;
+        }
+
+        html,
+        body {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        body {
+            background: #f5f7fa;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            overflow-x: hidden;
+            margin: 0;
+        }
+
+        .login-container {
+            max-width: 420px;
+            width: 100%;
+            margin: 0 auto;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid #e8eaf0;
+            border-top: 4px solid #2ecc71;
+        }
+
+        .login-header {
+            background: white;
+            padding: 2.5rem 1.5rem 1.5rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .logo-shield {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.2);
+        }
+
+        .logo-shield i {
+            font-size: 2rem;
+            color: white;
+        }
+
+        .login-header h1 {
+            color: #2ecc71;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 0 0.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .login-subtitle {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin: 0;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .login-body {
+            padding: 1.5rem 2rem 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-label i {
+            color: var(--primary-green);
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            font-size: 0.9375rem;
+            transition: all 0.2s;
+            background: #fafbfc;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-green);
+            box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.1);
+            background: white;
+        }
+
+        .form-control::placeholder {
+            color: #aaa;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 1.1rem;
+        }
+
+        .password-toggle:hover {
+            color: var(--primary-green);
+        }
+
+        .password-wrapper {
+            position: relative;
+        }
+
+        .btn-login {
+            width: 100%;
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            border: none;
+            border-radius: 8px;
+            padding: 0.875rem;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(46, 204, 113, 0.25);
+            margin-top: 1.5rem;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(46, 204, 113, 0.35);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        .btn-login:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .forgot-password {
+            text-align: right;
+            margin-top: 0.5rem;
+        }
+
+        .forgot-password a {
+            color: var(--primary-green);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .login-footer {
+            text-align: center;
+            padding: 1.25rem 2rem;
+            background: #fafbfc;
+            border-top: 1px solid #e8eaf0;
+        }
+
+        .login-footer p {
+            margin: 0;
+            font-size: 0.8125rem;
+            color: #6b7280;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .back-link a {
+            color: #4b5563;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e8eaf0;
+        }
+
+        .back-link a:hover {
+            background: #f9fafb;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+            color: #2c3e50;
+        }
+
+        .error-message {
+            background: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fee2e2;
+            padding: 0.875rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.25rem;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-10px);
+            }
+
+            75% {
+                transform: translateX(10px);
+            }
+        }
+
+        .biometric-option {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #eee;
+        }
+
+        .biometric-option p {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 0.75rem;
+        }
+
+        .btn-biometric {
+            background: white;
+            border: 2px solid var(--primary-green);
+            color: var(--primary-green);
+            border-radius: 12px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .btn-biometric:hover {
+            background: var(--primary-green);
+            color: white;
+        }
+
+        .btn-biometric i {
+            font-size: 1.2rem;
+        }
+
+        /* Loading spinner */
+        .spinner-border-sm {
+            width: 1rem;
+            height: 1rem;
+            border-width: 2px;
+        }
+
+        /* Responsive */
+        @media (max-width: 480px) {
+            .login-header {
+                padding: 2rem 1.5rem;
+            }
+
+            .login-body {
+                padding: 1.5rem;
+            }
+
+            .login-header h1 {
+                font-size: 1.3rem;
+            }
+
+            .logo-shield {
+                width: 70px;
+                height: 70px;
+            }
+
+            .logo-shield i {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <!-- Header -->
+            <div class="login-header">
+                <div class="logo-shield">
+                    <i class="bi bi-shield-check"></i>
+                </div>
+                <h1>AgroGuard</h1>
+                <p class="login-subtitle">Empowering Agricultural Extension<br>Officers with secure access and reliable field tools</p>
+            </div>
+
+            <!-- Body -->
+            <div class="login-body">
+                <h2 class="section-title">Officer Login</h2>
+
+                {% if error %}
+                <div class="error-message">
+                    <i class="bi bi-exclamation-circle"></i>
+                    <span>{{ error }}</span>
+                </div>
+                {% endif %}
+
+                <form method="POST" action="/login" id="loginForm">
+                    <!-- Ghana Card ID -->
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="bi bi-credit-card-2-front"></i>
+                            Ghana Card ID
+                        </label>
+                        <input type="text" name="ghana_card" class="form-control" placeholder="GHA-XXXXXXXXX-X"
+                            autocomplete="username" id="ghanaCardInput" style="text-transform: uppercase;" autocapitalize="characters">
+                    </div>
+
+                    <!-- Staff ID (Alternative) -->
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="bi bi-person-badge"></i>
+                            Staff ID
+                        </label>
+                        <input type="text" name="staff_id" class="form-control" placeholder="AEO-XXXX"
+                            autocomplete="username" id="staffIdInput" style="text-transform: uppercase;" autocapitalize="characters">
+                        <small class="text-muted" style="font-size: 0.75rem; display: block; margin-top: 0.25rem;">
+                            Use either Ghana Card ID or Staff ID
+                        </small>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="bi bi-lock"></i>
+                            Password
+                        </label>
+                        <div class="password-wrapper">
+                            <input type="password" name="password" class="form-control"
+                                placeholder="Enter your password" required autocomplete="current-password"
+                                id="passwordInput">
+                            <button type="button" class="password-toggle" onclick="togglePassword()">
+                                <i class="bi bi-eye" id="toggleIcon"></i>
+                            </button>
+                        </div>
+                        <div class="forgot-password">
+                            <a href="/reset-password">Forgot Password?</a>
+                        </div>
+                    </div>
+
+                    <!-- Remember Me -->
+                    <div class="remember-me">
+                        <input type="checkbox" name="remember_me" id="rememberMe">
+                        <label for="rememberMe">Remember me</label>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-login" id="loginBtn">
+                        <i class="bi bi-box-arrow-in-right"></i>
+                        <span id="btnText">Sign In</span>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Footer -->
+            <div class="login-footer">
+                <p>© 2026 AgroGuard Ghana. All rights reserved.</p>
+            </div>
+        </div>
+
+        <!-- Back to Home -->
+        <div class="back-link">
+            <a href="/" onclick="clearRoleChoice()">
+                <i class="bi bi-arrow-left"></i>
+                Back to Home
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Clear saved role choice when going back to role selection
+        function clearRoleChoice() {
+            localStorage.removeItem('agroguard_user_role');
+            console.log('Role choice cleared - returning to role selection');
+        }
+        
+        // Toggle password visibility
+        function togglePassword() {
+            const input = document.getElementById('passwordInput');
+            const icon = document.getElementById('toggleIcon');
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.className = 'bi bi-eye-slash';
+            } else {
+                input.type = 'password';
+                icon.className = 'bi bi-eye';
+            }
+        }
+
+        // Form submission with loading state
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            const btn = document.getElementById('loginBtn');
+            const btnText = document.getElementById('btnText');
+
+            btn.disabled = true;
+            btnText.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Signing in...';
+        });
+
+        // Auto-focus first empty field
+        window.addEventListener('load', function () {
+            const ghanaCard = document.getElementById('ghanaCardInput');
+            const staffId = document.getElementById('staffIdInput');
+
+            if (!ghanaCard.value && !staffId.value) {
+                ghanaCard.focus();
+            }
+        });
+
+        // Validate that at least one ID is provided
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            const ghanaCard = document.getElementById('ghanaCardInput').value.trim();
+            const staffId = document.getElementById('staffIdInput').value.trim();
+
+            if (!ghanaCard && !staffId) {
+                e.preventDefault();
+                alert('Please enter either your Ghana Card ID or Staff ID.');
+                return false;
+            }
+        });
+    </script>
+</body>
+
+</html>
