@@ -1,2 +1,2 @@
 # Agroguard
-AgAn Ai-driven maize disease detection and regional surveillance platform
+An Ai-driven maize disease detection and regional surveillance platform
